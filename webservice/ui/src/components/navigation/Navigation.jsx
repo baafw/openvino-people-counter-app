@@ -5,9 +5,12 @@ import "./Navigation.css";
 
 // const icon = require( "assets/images/intel-people-counter.svg" );
 
-const Navigation = ( { toggleStats, statsOn } ) => (
+const Navigation = ( { toggleStats,statsOn,toggleVideo, videoOn } ) => (
   <nav className="navigation">
     <span className="logo-title" />
+    <div className="navBtns">
+      <a className={ `navBtn history ${ videoOn ? "active" : "" }` } onClick={ toggleVideo }><FontAwesome name="video-camera" size="2x" /></a>
+    </div>
     <div className="navBtns">
       <a className={ `navBtn history ${ statsOn ? "active" : "" }` } onClick={ toggleStats }><FontAwesome name="area-chart" size="2x" /></a>
     </div>
@@ -17,6 +20,8 @@ const Navigation = ( { toggleStats, statsOn } ) => (
 Navigation.propTypes = {
   toggleStats: PropTypes.func.isRequired,
   statsOn: PropTypes.bool.isRequired,
+  toggleVideo: PropTypes.func.isRequired,
+  videoOn: PropTypes.bool.isRequired,
 };
 
 Navigation.defaultProps = {

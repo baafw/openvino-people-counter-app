@@ -2,7 +2,15 @@
 
 | Details            |              |
 |-----------------------|---------------|
-| Programming Language: |  Python 3.5 or 3.6 |
+| Programming Language: |  Python 3.**6** |
+| OpenVino Version: |  2020.**2** |
+| Models Tested: |  Yolov3 tiny : **Suffecinet and fast** <br /> Yolov3 : **Suffecinet but slow** <br /> SSD MobileNet coco: **Insuffecinet**|
+| Model Selected: |  Yolov3 tiny **FP16** with confidence threshold **0.2**|
+| Hardware Used: |  Intel CPU i7 8th gen|
+| Environment Used: |  **Local/docker Ubunto 18.1**|
+| **MVP Features added**: |  * Notification in case current person duration exceeds 10 sec. <br />  * Add button to stop/start ffmpeg feed|
+| Run command: | ```python3 main.py -i resources/Pedestrian_Detect_2_1_1.mp4 -m model/frozen_darknet_yolov3_model_tiny_fp16.xml -d CPU -pt 0.2 -lt 2 | ffmpeg -v warning -f rawvideo -pixel_format bgr24 -video_size 768x432 -framerate 24 -i - http://0.0.0.0:3004/fac.ffm ```|
+
 
 ![people-counter-python](./images/people-counter-image.png)
 

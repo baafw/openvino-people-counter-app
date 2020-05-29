@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./CameraFeed.css";
 import { HTTP, SETTINGS } from "../../constants/constants";
 
@@ -24,11 +25,16 @@ class CameraFeed extends React.Component {
     return (
       <div className="camera-feed" >
         <div className="camera-feed-container">
-          <img src={ this.state.mjpgSrc } alt="camera feed" style={ imgStyle } onClick={ this.refreshImage } className="camera-feed-img" />
+          <img src={ this.props.videoOn? this.state.mjpgSrc : ""} alt="camera feed" style={ imgStyle } onClick={ this.refreshImage } className="camera-feed-img" />
         </div>
       </div>
     );
   }
 }
+
+CameraFeed.propTypes = {
+  videoOn: PropTypes.bool.isRequired
+};
+
 
 export default CameraFeed;

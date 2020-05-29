@@ -9,6 +9,7 @@ import ReduxThunk from "redux-thunk";
 import createHistory from "history/createBrowserHistory";
 import { Route, Switch } from "react-router-dom";
 import { ConnectedRouter, routerMiddleware } from "react-router-redux";
+import { ToastContainer } from 'react-toastify';
 
 // components
 import ConnectedNavigation from "components/navigation/ConnectedNavigation";
@@ -24,6 +25,7 @@ import Monitor from "pages/monitor/Monitor";
 
 // css
 import "index.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 // html
 import "index.html";
@@ -60,6 +62,7 @@ render(
         <Route component={ ConnectedNavigation } />
         <ConnectedLog />
         <Route exact path="/" component={ Monitor } />
+        <ToastContainer />
       </div>
     </ConnectedRouter>
   </Provider>,

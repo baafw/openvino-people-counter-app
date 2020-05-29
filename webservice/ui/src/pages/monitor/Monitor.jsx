@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CameraFeed from "../../features/camera-feed/CameraFeed";
+//import CameraFeed from "../../features/camera-feed/CameraFeed";
+import ConnectedCameraFeed from "../../features/camera-feed/ConnectedCameraFeed";
 
 class Monitor extends React.Component {
   constructor( props ) {
@@ -9,7 +10,7 @@ class Monitor extends React.Component {
 
   render() {
     return (
-      <CameraFeed />
+      <ConnectedCameraFeed />
     );
   }
 }

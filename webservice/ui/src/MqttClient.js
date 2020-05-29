@@ -15,6 +15,7 @@ class MqttClient {
       // subscribe to every possible topic
       this.client.subscribe( MQTT.TOPICS.PERSON );
       this.client.subscribe( MQTT.TOPICS.DURATION );
+      this.client.subscribe( MQTT.TOPICS.DURATIONEXCEEDS10SEC );
       this.publish( "presence", "hello from react" );
 
       console.log( "connected to " + MQTT.MQTT_SERVER );

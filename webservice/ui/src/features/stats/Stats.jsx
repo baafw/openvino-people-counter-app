@@ -7,6 +7,8 @@ import FontAwesome from "react-fontawesome";
 import mq from "../../MqttClient";
 import { MQTT, SETTINGS } from "../../constants/constants";
 import "./Stats.css";
+import { toast } from 'react-toastify';
+
 
 class Stats extends React.Component {
   constructor( props ) {
@@ -43,6 +45,12 @@ class Stats extends React.Component {
       case MQTT.TOPICS.DURATION:
         this.calculateDuration( payload );
         break;
+      case MQTT.TOPICS.DURATIONEXCEEDS10SEC:
+          toast.error("Person duration exceeds 10 sec" ,
+                      {
+                        position: toast.POSITION.TOP_LEFT
+                      });
+          break;
       default:
         break;
     }

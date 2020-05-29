@@ -1,11 +1,13 @@
 // actions
 const TOGGLE_STATS = "features/stats/TOGGLE_STATS";
 const TOGGLE_COUNT = "features/stats/TOGGLE_COUNT";
+const TOGGLE_VIDEO = "features/stats/TOGGLE_VIDEO";
 
 // initial state
 const initialState = {
-  statsOn: false,
-  totalCountOn: false,
+  statsOn: true,
+  totalCountOn: true,
+  videoOn: true,
   peopleSeen: [],
   currentCount: 0,
   currentDuration: null,
@@ -25,6 +27,11 @@ export default function reducer( state = initialState, action = {} ) {
         ...state,
         totalCountOn: !state.totalCountOn,
       };
+    case TOGGLE_VIDEO:
+      return {
+        ...state,
+        videoOn: !state.videoOn,
+      };
     default: return state;
   }
 }
@@ -36,4 +43,8 @@ export function toggleStats() {
 
 export function toggleTotalCount() {
   return { type: TOGGLE_COUNT };
+}
+
+export function toggleVideo() {
+  return { type: TOGGLE_VIDEO };
 }
