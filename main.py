@@ -103,13 +103,24 @@ def assess_scene(total_people_count, prev_people_count, prev_enter_duration, cur
     # in case some people was in previous frame but not detected in current frame by model
     # assuming that people won't instantly leave the frame and need 1 second at least to enter/leave the frame
     if ((duration - prev_enter_duration) < args.leave_threshold):
+        # in case new person detected in less than threshold then ignore them for this frame
+        # and return previous count/duration
+        # later in next frames in case person still there in frames (above threshold) then willl consider them as new people
         if(current_people_count > prev_people_count):
             # return same status to assess next frames
             return total_people_count, prev_people_count, prev_enter_duration
+        
+        # in case person left the frame in less than threshold, that means it's false positive (2nd person in video detected as 2 persons when they enter the frame)
+        # in this case consider them left the frame and consider new duration as enter duration
+        # that means we published count by MQTT to UI before as 2 people enter the frame
+        # in this case we need to notify UI that current count is updated and false positive person is left
         elif((current_people_count < prev_people_count)): 
             # update UI in this case as people count is less than prev sent one
             mqttclient.publish("person", json.dumps({"count": current_people_count}))
             return total_people_count, current_people_count, duration
+        #else people in previous frame are same in current frame nothing to do here
+        # but let below code check if user duration exceeds 10 sec and notify UI by this 
+        # and return current same status for next frame 
 
 
 

@@ -81,6 +81,37 @@ In investigating potential people counter models, I tried each of the following 
     - Add person enter/leave duration threshold (default 1 second) for considering that person won't enter and leave under that threshold. This will remove the impact of few ture negative and false positives
     - Make precision as 16FP to reduce size of the model
   
+- Model 1: [Yolov3]
+  - https://github.com/mystic123/tensorflow-yolo-v3
+  - I converted the model to an Intermediate Representation with the following arguments
+    ```
+    python3 convert_weights_pb.py --class_names coco.names --data_format NHWC --weights_file yolov3.weights 
+
+    export MO_PATH=/opt/intel/openvino/deployment_tools/model_optimizer
+
+    python3 $MO_PATH/mo_tf.py --reverse_input_channels --transformations_config=$MO_PATH/extensions/front/tf/yolo_v3.json --input_model=frozen_darknet_yolov3_model.pb --data_type=FP16 --batch 1
+    ```
+  - The model was **sufficient** but slow
+  - I tried to improve the model for the app by 
+    - Tune confidence threshold (0.1 and 0.2 works good with yolov3)
+    - Add person enter/leave duration threshold (default 1 second) for considering that person won't enter and leave under that threshold. This will remove the impact of few ture negative and false positives
+    - Make precision as 16FP to reduce size of the model
+
+- Model 1: [SSDMobileNetV2]
+  - Source: https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md
+  - Download and extract from: http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v2_coco_2018_03_29.tar.gz
+  - I converted the model to an Intermediate Representation with the following arguments
+    ```
+    export MO_PATH=/opt/intel/openvino/deployment_tools/model_optimizer
+
+    python3 $MO_PATH/mo.py --input_model frozen_inference_graph.pb --tensorflow_object_detection_api_pipeline_config pipeline.config --reverse_input_channels --transformations_config=$MO_PATH/front/tf/ssd_v2_support.json
+    ```
+  - The model was **insufficient** 
+  - I tried to improve the model for the app by 
+    - Tune confidence threshold (even with low value 0.1 and 0.2 it doesn't work)
+    - Add person enter/leave duration threshold (default 1 second) for considering that person won't enter and leave under that threshold. This will remove the impact of few ture negative and false positives
+    - Make precision as 16FP to reduce size of the model
+
 
 ## Explaining Custom Layers
 
