@@ -11,7 +11,7 @@ I've used Yolov3 sample from openvino toolkit to parse the model output  and I h
 I've used `demo.py` from same Yolov3 [github repo](https://github.com/mystic123/tensorflow-yolo-v3) to run inference using the original frozen model and I have made some modifications to it to get video output as well as print inference time. It's `tf_yolov3_demo.py` in project root.
 
 ### Method
-My method(s) to compare models before and after conversion to Intermediate Representations were to to create output video of sample video with bounding boxes and inference time printed for pre-conversted model and then watch the video and discover the false positive/true negatives/inference time based on it.  
+My method(s) to compare models before and after conversion to Intermediate Representations were to to create output video of sample video with bounding boxes and inference time printed for pre-conversted model and then watch the video and discover the false positive/false negatives/inference time based on it.  
 
 
 | Factor/Model       | YOLOV3 Tiny   | YOLOV3        | SSD MobileNetV2 | 
@@ -25,8 +25,8 @@ My method(s) to compare models before and after conversion to Intermediate Repre
 |Post-Inference Time FP16| 15ms      | 170ms     | 12ms|
 |||||
 |Pre-Accuracy  with **0.5** threshold | True Negative = low | 100% Accurate  | not tested |
-|Post-Accuracy FP32  with **0.2** threshold| False Positive = low <br /> True Negative = low<br /> | False Positive =0  <br /> True Negative = low  |  False Positive =low  <br /> True Negative = **high** |
-|Post-Accuracy FP16 with **0.2** threshold| False Positive = low <br /> True Negative = low<br /> | False Positive =0  <br /> True Negative = low  |  False Positive =low  <br /> True Negative = **high** | 
+|Post-Accuracy FP32  with **0.2** threshold| False Positive = low <br /> False Negative = low<br /> | False Positive =0  <br /> False Negative = low  |  False Positive =low  <br /> False Negative = **high** |
+|Post-Accuracy FP16 with **0.2** threshold| False Positive = low <br /> False Negative = low<br /> | False Positive =0  <br /> False Negative = low  |  False Positive =low  <br /> False Negative = **high** | 
 |Does it fullfil requirements?| YES and fast| YES but slow| NO |
 |Selected Model| **Yolov3 tiny FP16** | | |
 
